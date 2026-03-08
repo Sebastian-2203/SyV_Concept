@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import Link from "next/link";
 import emailjs from "@emailjs/browser";
 import useScrollReveal from "../hooks/useScrollReveal";
 import styles from "./Contact.module.css";
@@ -74,7 +75,7 @@ export default function Contact() {
                             <span className={styles.infoIcon}>📅</span>
                             <div>
                                 <strong>Agendar Reunión</strong>
-                                <a href="#" className={styles.schedulingLink}>Reserva una llamada de 15 min</a>
+                                <Link href="/scheduling" className={styles.schedulingLink}>Reserva una llamada de 15 min</Link>
                             </div>
                         </div>
                     </div>

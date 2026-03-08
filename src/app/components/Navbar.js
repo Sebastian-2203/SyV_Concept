@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
     { id: "inicio", label: "Inicio", icon: "⌂" },
@@ -57,6 +58,9 @@ export default function Navbar() {
                         <span className={styles.label}>{item.label}</span>
                     </button>
                 ))}
+            </div>
+            <div className={styles.toggleContainer}>
+                <ThemeToggle />
             </div>
         </nav>
     );

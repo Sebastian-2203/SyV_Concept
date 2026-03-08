@@ -3,18 +3,18 @@ import { useState } from "react";
 import styles from "./Quoter.module.css";
 
 const serviceOptions = [
-    { id: "landing", label: "Landing Page", price: 500 },
-    { id: "ecommerce", label: "Tienda Online", price: 1200 },
-    { id: "webapp", label: "Web App / Sistema", price: 2000 },
-    { id: "corporate", label: "Sitio Corporativo", price: 800 },
+    { id: "landing", label: "Landing Page", price: 1500000 },
+    { id: "ecommerce", label: "Tienda Online", price: 4500000 },
+    { id: "webapp", label: "Web App / Sistema", price: 8000000 },
+    { id: "corporate", label: "Sitio Corporativo", price: 2800000 },
 ];
 
 const extras = [
-    { id: "seo", label: "Optimización SEO", price: 150 },
-    { id: "email", label: "Email Marketing", price: 100 },
-    { id: "admin", label: "Panel Administrativo", price: 400 },
-    { id: "support", label: "Soporte 3 meses", price: 200 },
-    { id: "hosting", label: "Configuración Hosting", price: 80 },
+    { id: "seo", label: "Optimización SEO", price: 500000 },
+    { id: "email", label: "Email Marketing", price: 350000 },
+    { id: "admin", label: "Panel Administrativo", price: 1500000 },
+    { id: "support", label: "Soporte 3 meses", price: 700000 },
+    { id: "hosting", label: "Configuración Hosting", price: 280000 },
 ];
 
 export default function Quoter() {
@@ -46,7 +46,7 @@ export default function Quoter() {
                     <div className={styles.success}>
                         <div className={styles.successIcon}>✓</div>
                         <h3>¡Cotización enviada!</h3>
-                        <p>Nos pondremos en contacto contigo pronto. Presupuesto estimado: <strong>${total.toLocaleString()} USD</strong></p>
+                        <p>Recibimos una cotización de <strong>${total.toLocaleString("es-CO")} COP</strong></p>
                         <button className={styles.resetBtn} onClick={() => { setSubmitted(false); setStep(1); setSelectedService(null); setSelectedExtras([]); }}>
                             Nueva cotización
                         </button>
@@ -88,7 +88,7 @@ export default function Quoter() {
                                         onClick={() => setSelectedService(s.id)}
                                     >
                                         <span className={styles.serviceLabel}>{s.label}</span>
-                                        <span className={styles.servicePrice}>Desde ${s.price} USD</span>
+                                        <span className={styles.servicePrice}>Desde ${s.price.toLocaleString("es-CO")} COP</span>
                                     </button>
                                 ))}
                             </div>
@@ -115,12 +115,12 @@ export default function Quoter() {
                                     >
                                         <span className={styles.extraCheck}>{selectedExtras.includes(e.id) ? "✓" : "+"}</span>
                                         <span className={styles.extraLabel}>{e.label}</span>
-                                        <span className={styles.extraPrice}>+ ${e.price}</span>
+                                        <span className={styles.extraPrice}>+ ${e.price.toLocaleString("es-CO")}</span>
                                     </button>
                                 ))}
                             </div>
                             <div className={styles.pricePreview}>
-                                Estimado actual: <strong>${total.toLocaleString()} USD</strong>
+                                Precio estimado desde: <strong>${total.toLocaleString("es-CO")} COP</strong>
                             </div>
                             <div className={styles.stepNav}>
                                 <button className={styles.backBtn} onClick={() => setStep(1)}>← Atrás</button>
@@ -164,7 +164,8 @@ export default function Quoter() {
                                     />
                                 </div>
                                 <div className={styles.total}>
-                                    Total estimado: <strong>${total.toLocaleString()} USD</strong>
+                                    Precio estimado desde: <strong>${total.toLocaleString("es-CO")} COP</strong>
+                                    <span className={styles.totalNote}>* El precio final puede variar según los requerimientos específicos del proyecto.</span>
                                 </div>
                                 <div className={styles.stepNav}>
                                     <button type="button" className={styles.backBtn} onClick={() => setStep(2)}>← Atrás</button>

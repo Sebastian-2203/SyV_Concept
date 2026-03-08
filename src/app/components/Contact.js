@@ -1,9 +1,37 @@
 "use client";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import useScrollReveal from "../hooks/useScrollReveal";
 import styles from "./Contact.module.css";
 
 export default function Contact() {
+    const formRef = useRef(null);
+    const [status, setStatus] = useState("idle"); // idle | sending | success | error
+    const { ref, isVisible } = useScrollReveal();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus("sending");
+        try {
+            await emailjs.sendForm(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+                process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID,
+                formRef.current,
+                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+            );
+            setStatus("success");
+            formRef.current.reset();
+        } catch {
+            setStatus("error");
+        }
+    };
+
     return (
-        <section id="contacto" className={styles.section}>
+        <section
+            id="contacto"
+            ref={ref}
+            className={`${styles.section} ${isVisible ? styles.visible : ""}`}
+        >
             <div className={styles.container}>
                 <div className={styles.header}>
                     <span className={styles.eyebrow}>Estamos aquí</span>
@@ -43,27 +71,33 @@ export default function Contact() {
                             </div>
                         </div>
                     </div>
-                    <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+                    <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
                         <div className={styles.row}>
                             <div className={styles.field}>
                                 <label>Nombre</label>
-                                <input type="text" placeholder="Tu nombre" />
+                                <input type="text" name="from_name" placeholder="Tu nombre" required />
                             </div>
                             <div className={styles.field}>
                                 <label>Email</label>
-                                <input type="email" placeholder="tu@email.com" />
+                                <input type="email" name="from_email" placeholder="tu@email.com" required />
                             </div>
                         </div>
                         <div className={styles.field}>
                             <label>Asunto</label>
-                            <input type="text" placeholder="¿En qué podemos ayudarte?" />
+                            <input type="text" name="subject" placeholder="¿En qué podemos ayudarte?" required />
                         </div>
                         <div className={styles.field}>
                             <label>Mensaje</label>
-                            <textarea rows={5} placeholder="Cuéntanos sobre tu proyecto o consulta..." />
+                            <textarea name="message" rows={5} placeholder="Cuéntanos sobre tu proyecto o consulta..." required />
                         </div>
-                        <button type="submit" className={styles.submitBtn}>
-                            Enviar mensaje →
+                        {status === "success" && (
+                            <div className={styles.successMsg}>✓ ¡Mensaje enviado con éxito! Te respondemos pronto.</div>
+                        )}
+                        {status === "error" && (
+                            <div className={styles.errorMsg}>✕ Ocurrió un error. Intenta de nuevo o escríbenos directamente.</div>
+                        )}
+                        <button type="submit" className={styles.submitBtn} disabled={status === "sending"}>
+                            {status === "sending" ? "Enviando..." : "Enviar mensaje →"}
                         </button>
                     </form>
                 </div>

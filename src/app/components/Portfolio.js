@@ -1,4 +1,5 @@
 "use client";
+import useScrollReveal from "../hooks/useScrollReveal";
 import styles from "./Portfolio.module.css";
 
 const projects = [
@@ -26,8 +27,9 @@ const projects = [
 ];
 
 export default function Portfolio() {
+    const { ref, isVisible } = useScrollReveal();
     return (
-        <section id="portafolio" className={styles.section}>
+        <section id="portafolio" ref={ref} className={`${styles.section} ${isVisible ? styles.visible : ""}`}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <span className={styles.eyebrow}>Trabajo reciente</span>

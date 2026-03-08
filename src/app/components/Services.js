@@ -1,4 +1,5 @@
 "use client";
+import useScrollReveal from "../hooks/useScrollReveal";
 import styles from "./Services.module.css";
 
 const services = [
@@ -33,14 +34,15 @@ const services = [
 ];
 
 export default function Services() {
+    const { ref, isVisible } = useScrollReveal();
     return (
-        <section id="servicios" className={styles.section}>
+        <section id="servicios" ref={ref} className={`${styles.section} ${isVisible ? styles.visible : ""}`}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <span className={styles.eyebrow}>¿Qué hacemos?</span>
                     <h2 className={styles.title}>Nuestros Servicios</h2>
                     <p className={styles.subtitle}>
-                        Combinamos diseño moderno con tecnología de punta para crear productos digitales que marcan la diferencia.
+                        Como agencia web líder, combinamos diseño moderno con tecnología de punta para crear productos digitales que marcan la diferencia en Colombia.
                     </p>
                 </div>
                 <div className={styles.grid}>

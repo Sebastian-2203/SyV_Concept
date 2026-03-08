@@ -1,9 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
 import MatrixBackground from "./MatrixBackground";
+import useCountUp from "../hooks/useCountUp";
 import styles from "./Hero.module.css";
 
 const words = ["Modernas", "Poderosas", "Escalables", "Innovadoras"];
+
+function AnimatedStat({ target, suffix = "", label }) {
+    const { count, ref } = useCountUp(target, 1800);
+    return (
+        <div className={styles.stat} ref={ref}>
+            <span className={styles.statNum}>{count}{suffix}</span>
+            <span className={styles.statLabel}>{label}</span>
+        </div>
+    );
+}
 
 export default function Hero() {
     const [wordIndex, setWordIndex] = useState(0);
@@ -42,8 +53,7 @@ export default function Hero() {
                     </span>
                 </h1>
                 <p className={styles.subtitle}>
-                    Desarrollamos páginas web modernas, sistemas digitales y soluciones tecnológicas
-                    para empresas y emprendimientos que quieren crecer.
+                    Agencia profesional de desarrollo web en Colombia. Creamos páginas modernas, sistemas digitales y soluciones tecnológicas robustas para empresas que buscan liderar el mercado.
                 </p>
                 <div className={styles.actions}>
                     <button className={styles.btnPrimary} onClick={() => scrollTo("cotizador")}>
@@ -55,20 +65,11 @@ export default function Hero() {
                     </button>
                 </div>
                 <div className={styles.stats}>
-                    <div className={styles.stat}>
-                        <span className={styles.statNum}>15+</span>
-                        <span className={styles.statLabel}>Proyectos</span>
-                    </div>
+                    <AnimatedStat target={15} suffix="+" label="Proyectos" />
                     <div className={styles.divider} />
-                    <div className={styles.stat}>
-                        <span className={styles.statNum}>2</span>
-                        <span className={styles.statLabel}>Fundadores</span>
-                    </div>
+                    <AnimatedStat target={2} suffix="" label="Fundadores" />
                     <div className={styles.divider} />
-                    <div className={styles.stat}>
-                        <span className={styles.statNum}>100%</span>
-                        <span className={styles.statLabel}>Remotos</span>
-                    </div>
+                    <AnimatedStat target={100} suffix="%" label="Remotos" />
                 </div>
             </div>
             <div className={styles.scrollHint}>

@@ -70,6 +70,13 @@ export default function Contact() {
                                 <span>Menos de 24 horas hábiles</span>
                             </div>
                         </div>
+                        <div className={styles.infoCard}>
+                            <span className={styles.infoIcon}>📅</span>
+                            <div>
+                                <strong>Agendar Reunión</strong>
+                                <a href="#" className={styles.schedulingLink}>Reserva una llamada de 15 min</a>
+                            </div>
+                        </div>
                     </div>
                     <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
                         <div className={styles.row}>

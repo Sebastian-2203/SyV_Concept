@@ -252,3 +252,14 @@
         padding: 24px;
     }
 }
+.infoCard div a.schedulingLink {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.infoCard div a.schedulingLink:hover {
+    color: var(--secondary);
+}

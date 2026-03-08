@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
 import useScrollReveal from "../hooks/useScrollReveal";
@@ -7,8 +8,16 @@ import styles from "./Contact.module.css";
 
 export default function Contact() {
     const formRef = useRef(null);
-    const [status, setStatus] = useState("idle"); // idle | sending | success | error
+    const router = useRouter();
+    const [status, setStatus] = useState("idle");
     const { ref, isVisible } = useScrollReveal();
+
+    const handleScheduleMeeting = () => {
+        const formData = new FormData(formRef.current);
+        const name = formData.get("from_name") || "";
+        const email = formData.get("from_email") || "";
+        router.push(`/scheduling?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,13 +80,6 @@ export default function Contact() {
                                 <span>Menos de 24 horas hábiles</span>
                             </div>
                         </div>
-                        <div className={styles.infoCard}>
-                            <span className={styles.infoIcon}>📅</span>
-                            <div>
-                                <strong>Agendar Reunión</strong>
-                                <Link href="/scheduling" className={styles.schedulingLink}>Reserva una llamada de 15 min</Link>
-                            </div>
-                        </div>
                     </div>
                     <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
                         <div className={styles.row}>
@@ -104,9 +106,18 @@ export default function Contact() {
                         {status === "error" && (
                             <div className={styles.errorMsg}>✕ Ocurrió un error. Intenta de nuevo o escríbenos directamente.</div>
                         )}
-                        <button type="submit" className={styles.submitBtn} disabled={status === "sending"}>
-                            {status === "sending" ? "Enviando..." : "Enviar mensaje →"}
-                        </button>
+                        <div className={styles.buttonGroup}>
+                            <button type="submit" className={styles.submitBtn} disabled={status === "sending"}>
+                                {status === "sending" ? "Enviando..." : "Enviar mensaje →"}
+                            </button>
+                            <button
+                                type="button"
+                                className={styles.scheduleBtn}
+                                onClick={handleScheduleMeeting}
+                            >
+                                Agendar reunión 📅
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

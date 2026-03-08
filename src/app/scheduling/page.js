@@ -1,12 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import styles from "./scheduling.module.css";
 
 const days = ["Lun", "Mar", "Mié", "Jue", "Vie"];
 const hours = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
 
-export default function SchedulingPage() {
+function SchedulingContent() {
+    const searchParams = useSearchParams();
+    const name = searchParams.get("name") || "";
+    const email = searchParams.get("email") || "";
+
     const [selectedDay, setSelectedDay] = useState(null);
     const [selectedHour, setSelectedHour] = useState(null);
     const [step, setStep] = useState(1); // 1: selection, 2: confirmation
@@ -76,10 +81,11 @@ export default function SchedulingPage() {
                     <main className={styles.successMain}>
                         <div className={styles.successCard}>
                             <span className={styles.successIcon}>🚀</span>
-                            <h2 className={styles.successTitle}>¡Solicitud enviada!</h2>
+                            <h2 className={styles.successTitle}>¡Solicitud enviada{name ? `, ${name}` : ""}!</h2>
                             <p className={styles.successText}>
                                 Hemos recibido tu interés para el {selectedDay} a las {selectedHour}.
-                                Te contactaremos pronto para confirmar el enlace de la reunión.
+                                {email && ` Te contactaremos pronto al correo ${email} para completar el agendamiento.`}
+                                {!email && " Te contactaremos pronto para confirmar el enlace de la reunión."}
                             </p>
                             <Link href="/" className={styles.homeLink}>
                                 Regresar al Inicio
@@ -93,5 +99,13 @@ export default function SchedulingPage() {
                 </footer>
             </div>
         </div>
+    );
+}
+
+export default function SchedulingPage() {
+    return (
+        <Suspense fallback={<div className={styles.wrapper}>Cargando...</div>}>
+            <SchedulingContent />
+        </Suspense>
     );
 }

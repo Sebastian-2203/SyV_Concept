@@ -164,6 +164,13 @@
     border-color: var(--primary);
 }
 
+.buttonGroup {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 10px;
+}
+
 .submitBtn {
     background: var(--primary);
     color: #fff;
@@ -173,93 +180,32 @@
     border-radius: var(--radius-sm);
     transition: all var(--transition-normal);
     box-shadow: 0 4px 16px rgba(0, 82, 255, 0.25);
-    align-self: flex-start;
+    flex: 1;
 }
 
-.submitBtn:hover:not(:disabled) {
-    background: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(0, 82, 255, 0.4);
-}
-
-.submitBtn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.successMsg {
-    font-size: 13px;
-    font-weight: 500;
-    color: #166534;
-    background: #dcfce7;
-    border: 1px solid #86efac;
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-}
-
-.errorMsg {
-    font-size: 13px;
-    font-weight: 500;
-    color: #991b1b;
-    background: #fee2e2;
-    border: 1px solid #fca5a5;
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .successMsg {
-        background: rgba(57, 255, 20, 0.1);
-        border-color: rgba(57, 255, 20, 0.3);
-        color: var(--success);
-    }
-
-    .errorMsg {
-        background: rgba(255, 0, 63, 0.1);
-        border-color: rgba(255, 0, 63, 0.3);
-        color: var(--danger);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .infoCard {
-        border-color: rgba(255, 255, 255, 0.06);
-    }
-
-    .form {
-        border-color: rgba(255, 255, 255, 0.06);
-    }
-
-    .field input,
-    .field textarea {
-        border-color: rgba(255, 255, 255, 0.08);
-        background: var(--surface-color);
-        color: var(--text-main);
-    }
-}
-
-@media (max-width: 780px) {
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-
-    .row {
-        grid-template-columns: 1fr;
-    }
-
-    .form {
-        padding: 24px;
-    }
-}
-.infoCard div a.schedulingLink {
+.scheduleBtn {
+    background: var(--surface-color);
     color: var(--primary);
+    font-size: 14px;
     font-weight: 600;
-    text-decoration: underline;
-    margin-top: 4px;
-    display: inline-block;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--primary);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    flex: 1;
 }
 
-.infoCard div a.schedulingLink:hover {
-    color: var(--secondary);
+.scheduleBtn:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(0, 82, 255, 0.25);
+}
+
+@media (max-width: 480px) {
+    .buttonGroup {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

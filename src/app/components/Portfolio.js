@@ -1,5 +1,6 @@
 "use client";
 import useScrollReveal from "../hooks/useScrollReveal";
+import Link from "next/link";
 import styles from "./Portfolio.module.css";
 
 const projects = [
@@ -9,6 +10,7 @@ const projects = [
         desc: "Sistema completo de agendamiento con calendario interactivo, notificaciones y panel de administración.",
         tech: ["Next.js", "Firebase", "Google Calendar"],
         gradient: "linear-gradient(135deg, #0052FF 0%, #00D4FF 100%)",
+        link: "https://agendamiento-citas-next.vercel.app/",
     },
     {
         title: "E-commerce Boutique",
@@ -40,25 +42,47 @@ export default function Portfolio() {
                 </div>
                 <div className={styles.grid}>
                     {projects.map((project, i) => (
-                        <div key={i} className={styles.card}>
-                            <div className={styles.cardPreview} style={{ background: project.gradient }}>
-                                <div className={styles.previewPattern}>
-                                    {Array.from({ length: 20 }).map((_, j) => (
-                                        <span key={j} className={styles.previewDot} />
-                                    ))}
+                        project.link ? (
+                            <Link href={project.link} key={i} className={styles.card}>
+                                <div className={styles.cardPreview} style={{ background: project.gradient }}>
+                                    <div className={styles.previewPattern}>
+                                        {Array.from({ length: 20 }).map((_, j) => (
+                                            <span key={j} className={styles.previewDot} />
+                                        ))}
+                                    </div>
+                                    <span className={styles.category}>{project.category}</span>
                                 </div>
-                                <span className={styles.category}>{project.category}</span>
-                            </div>
-                            <div className={styles.cardBody}>
-                                <h3 className={styles.cardTitle}>{project.title}</h3>
-                                <p className={styles.cardDesc}>{project.desc}</p>
-                                <div className={styles.tech}>
-                                    {project.tech.map((t, j) => (
-                                        <span key={j} className={styles.techTag}>{t}</span>
-                                    ))}
+                                <div className={styles.cardBody}>
+                                    <h3 className={styles.cardTitle}>{project.title}</h3>
+                                    <p className={styles.cardDesc}>{project.desc}</p>
+                                    <div className={styles.tech}>
+                                        {project.tech.map((t, j) => (
+                                            <span key={j} className={styles.techTag}>{t}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Link>
+                        ) : (
+                            <div key={i} className={styles.card}>
+                                <div className={styles.cardPreview} style={{ background: project.gradient }}>
+                                    <div className={styles.previewPattern}>
+                                        {Array.from({ length: 20 }).map((_, j) => (
+                                            <span key={j} className={styles.previewDot} />
+                                        ))}
+                                    </div>
+                                    <span className={styles.category}>{project.category}</span>
+                                </div>
+                                <div className={styles.cardBody}>
+                                    <h3 className={styles.cardTitle}>{project.title}</h3>
+                                    <p className={styles.cardDesc}>{project.desc}</p>
+                                    <div className={styles.tech}>
+                                        {project.tech.map((t, j) => (
+                                            <span key={j} className={styles.techTag}>{t}</span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        )
                     ))}
                 </div>
                 <div className={styles.cta}>

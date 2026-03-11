@@ -58,6 +58,10 @@
 }
 
 .card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
     background: var(--bg-color);
     border-radius: var(--radius-md);
     overflow: hidden;

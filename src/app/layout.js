@@ -7,6 +7,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://syvsolutions.com"),
   title: "S&V Solutions | Agencia de Desarrollo Web y Soluciones Tecnológicas",
   description: "S&V Solutions desarrolla páginas web modernas, sistemas digitales y soluciones tecnológicas para empresas y emprendimientos en Colombia.",
   keywords: ["desarrollo web", "páginas web", "Colombia", "agencia digital", "Next.js", "soluciones tecnológicas"],

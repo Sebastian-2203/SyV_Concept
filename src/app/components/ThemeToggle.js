@@ -9,7 +9,10 @@ export default function ThemeToggle() {
         // Get initial theme from attribute (which was set by the blocking script in layout)
         const currentTheme = document.documentElement.getAttribute("data-theme") ||
             (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-        setTheme(currentTheme);
+        const frame = requestAnimationFrame(() => {
+            setTheme(currentTheme);
+        });
+        return () => cancelAnimationFrame(frame);
     }, []);
 
     const toggleTheme = () => {
